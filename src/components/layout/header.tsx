@@ -52,22 +52,22 @@ export function Header() {
   const breadcrumbs = buildBreadcrumbs(pathname)
 
   return (
-    <header className="flex h-12 items-center px-6">
-      <nav className="flex items-center gap-1 text-sm">
+    <header className="flex h-10 items-center px-8">
+      <nav className="flex items-center gap-1.5 text-[13px]">
         {breadcrumbs.map((item, index) => (
-          <span key={index} className="flex items-center gap-1">
+          <span key={index} className="flex items-center gap-1.5">
             {index > 0 && (
-              <ChevronRight className="size-3 text-stone-300" />
+              <ChevronRight className="size-2.5 text-muted-foreground/30" />
             )}
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-stone-400 transition-colors hover:text-stone-600"
+                className="text-muted-foreground/50 transition-colors hover:text-muted-foreground"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-stone-600">{item.label}</span>
+              <span className="text-foreground/70 font-light">{item.label}</span>
             )}
           </span>
         ))}

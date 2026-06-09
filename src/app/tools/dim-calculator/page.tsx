@@ -9,24 +9,24 @@ export default function DimCalculatorPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-light tracking-tight text-stone-800">分泡计算器</h1>
-        <p className="mt-1 text-sm text-stone-400">
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">分泡计算器</h1>
+        <p className="mt-1 text-sm text-muted-foreground/50 font-light">
           计算体积重量与分泡比例，支持单箱和批量计算
         </p>
       </div>
 
       <Tabs defaultValue="single">
-        <TabsList className="bg-stone-100">
+        <TabsList className="bg-secondary/60">
           <TabsTrigger value="single">单箱计算</TabsTrigger>
           <TabsTrigger value="batch">批量计算</TabsTrigger>
         </TabsList>
         <TabsContent value="single" className="mt-6">
-          <div className="bg-accent/5 rounded-lg p-4">
+          <div className="bg-secondary/30 rounded-2xl p-5">
             <DimCalculatorForm />
           </div>
         </TabsContent>
         <TabsContent value="batch" className="mt-6">
-          <div className="bg-accent/5 rounded-lg p-4">
+          <div className="bg-secondary/30 rounded-2xl p-5">
             <BatchCalculator />
           </div>
         </TabsContent>

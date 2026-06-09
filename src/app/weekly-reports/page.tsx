@@ -100,15 +100,15 @@ export default function WeeklyReportsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-light tracking-tight text-stone-800">周报管理</h1>
-          <p className="text-sm text-stone-400 mt-1">
+          <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">周报管理</h1>
+          <p className="text-sm text-muted-foreground/50 font-light mt-1">
             管理物流部周报，追踪时效达成和重点问题
           </p>
         </div>
         <Link href="/weekly-reports/new">
           <Button
             variant="outline"
-            className="h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50 hover:text-stone-800"
+            className="h-9 rounded-xl border-border/50 bg-transparent hover:bg-secondary/60 text-muted-foreground"
           >
             <PlusIcon className="size-3.5" />
             新建周报
@@ -122,7 +122,7 @@ export default function WeeklyReportsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="搜索周数或年份..."
-          className="h-9 rounded-lg border-stone-200 bg-white pl-8 text-sm text-stone-700 placeholder:text-stone-300"
+          className="h-9 rounded-xl border-border/50 bg-white/80 pl-8 text-foreground/80 font-light placeholder:text-muted-foreground/40"
         />
       </div>
 
@@ -131,7 +131,7 @@ export default function WeeklyReportsPage() {
           <CalendarIcon className="size-12 mx-auto mb-3 opacity-30" />
           <p className="text-sm">暂无周报记录</p>
           <Link href="/weekly-reports/new">
-            <Button variant="outline" className="mt-3 h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50">
+            <Button variant="outline" className="mt-3 h-9 rounded-xl border-border/50 bg-transparent hover:bg-secondary/60 text-muted-foreground">
               创建第一份周报
             </Button>
           </Link>
@@ -140,7 +140,7 @@ export default function WeeklyReportsPage() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((report) => (
             <Link key={report.id} href={`/weekly-reports/${report.id}`}>
-              <Card className="border-stone-200/60 shadow-none hover:shadow-sm transition-shadow cursor-pointer">
+              <Card className="border-border/30 shadow-none hover:shadow-none transition-shadow cursor-pointer">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-sm font-normal text-stone-700">
                     <CalendarIcon className="size-3.5 text-stone-400" />

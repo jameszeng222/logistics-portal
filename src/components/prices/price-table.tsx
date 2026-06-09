@@ -62,7 +62,7 @@ export function PriceTable({ columns, data, onRowClick }: PriceTableProps) {
               <Button
                 variant="ghost"
                 size="xs"
-                className="-ml-1.5 text-stone-400 hover:text-stone-600"
+                className="-ml-1.5 text-muted-foreground/50 hover:text-muted-foreground"
                 onClick={() => handleSort(col.key)}
               >
                 {col.label}

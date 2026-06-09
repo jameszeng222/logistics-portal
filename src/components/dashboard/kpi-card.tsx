@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface KpiCardProps {
@@ -21,24 +20,24 @@ export function KpiCard({
   return (
     <div
       className={cn(
-        "bg-white rounded-xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-shadow duration-300",
+        "rounded-2xl bg-card p-6",
         className
       )}
     >
-      <p className="text-xs font-normal text-stone-400 uppercase tracking-wider">
+      <p className="text-[11px] font-light text-muted-foreground/60 uppercase tracking-widest">
         {title}
       </p>
-      <div className="flex items-baseline gap-2 mt-2">
-        <span className="text-2xl font-light text-stone-800 tracking-tight">
+      <div className="flex items-baseline gap-2 mt-3">
+        <span className="text-3xl font-extralight text-foreground/80 tracking-tight">
           {value}
         </span>
         {trend && trendValue && (
           <span
             className={cn(
-              "text-xs font-normal",
-              trend === "up" && "text-stone-400",
-              trend === "down" && "text-[#5f8a7e]",
-              trend === "flat" && "text-stone-300"
+              "text-[11px] font-light",
+              trend === "up" && "text-muted-foreground/50",
+              trend === "down" && "text-accent",
+              trend === "flat" && "text-muted-foreground/30"
             )}
           >
             {trend === "up" && "↑"}
@@ -49,7 +48,7 @@ export function KpiCard({
         )}
       </div>
       {description && (
-        <p className="text-xs text-stone-400 mt-1.5">{description}</p>
+        <p className="text-[11px] text-muted-foreground/40 mt-2 font-light">{description}</p>
       )}
     </div>
   );

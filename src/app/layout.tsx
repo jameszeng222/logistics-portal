@@ -19,11 +19,11 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="font-sans antialiased">
-        <div className="flex h-screen overflow-hidden bg-[#fafaf9]">
+        <div className="flex h-screen overflow-hidden bg-background">
           <Sidebar />
           <div className="flex flex-1 flex-col overflow-hidden">
             <Header />
-            <main className="flex-1 overflow-y-auto p-8">
+            <main className="flex-1 overflow-y-auto px-10 py-8">
               {children}
             </main>
           </div>

@@ -186,10 +186,10 @@ export default function ProvidersPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-light tracking-tight text-stone-800">服务商管理</h1>
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">服务商管理</h1>
         <Button
           variant="outline"
-          className="h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50 hover:text-stone-800"
+          className="h-9 rounded-xl border-border/50 bg-transparent hover:bg-secondary/60 text-muted-foreground"
           onClick={() => setDialogOpen(true)}
         >
           <Plus className="mr-1.5 size-3.5" />
@@ -200,9 +200,9 @@ export default function ProvidersPage() {
       {/* Filter bar */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="grid gap-1">
-          <Label className="text-xs text-stone-400">渠道</Label>
+          <Label className="text-xs text-muted-foreground/50">渠道</Label>
           <Select value={filterChannel} onValueChange={(v) => v && setFilterChannel(v)}>
-            <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
+            <SelectTrigger className="h-9 w-32 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -217,9 +217,9 @@ export default function ProvidersPage() {
         </div>
 
         <div className="grid gap-1">
-          <Label className="text-xs text-stone-400">状态</Label>
+          <Label className="text-xs text-muted-foreground/50">状态</Label>
           <Select value={filterStatus} onValueChange={(v) => v && setFilterStatus(v)}>
-            <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
+            <SelectTrigger className="h-9 w-32 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -233,11 +233,11 @@ export default function ProvidersPage() {
         </div>
 
         <div className="grid gap-1">
-          <Label className="text-xs text-stone-400">搜索</Label>
+          <Label className="text-xs text-muted-foreground/50">搜索</Label>
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-stone-300" />
             <Input
-              className="h-9 w-48 rounded-lg border-stone-200 bg-white pl-8 text-sm text-stone-700 placeholder:text-stone-300"
+              className="h-9 w-48 rounded-xl border-border/50 bg-white/80 pl-8 text-foreground/80 font-light placeholder:text-muted-foreground/40"
               placeholder="搜索服务商名称"
               value={filterSearch}
               onChange={(e) => setFilterSearch(e.target.value)}
@@ -267,8 +267,8 @@ export default function ProvidersPage() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-lg font-light tracking-tight text-stone-800">新增服务商</DialogTitle>
-            <DialogDescription className="text-sm text-stone-400">填写以下信息添加新的服务商</DialogDescription>
+            <DialogTitle className="text-lg font-extralight tracking-tight text-foreground/80">新增服务商</DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground/50">填写以下信息添加新的服务商</DialogDescription>
           </DialogHeader>
           <ProviderForm
             channels={channels}

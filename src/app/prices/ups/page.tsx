@@ -164,11 +164,11 @@ export default function UpsPricePage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-light tracking-tight text-stone-800">UPS 价格管理</h1>
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">UPS 价格管理</h1>
       </div>
 
       <Tabs defaultValue="list">
-        <TabsList className="bg-stone-100">
+        <TabsList className="bg-secondary/60">
           <TabsTrigger value="list">价格列表</TabsTrigger>
           <TabsTrigger value="compare">价格对比</TabsTrigger>
           <TabsTrigger value="trend">历史趋势</TabsTrigger>
@@ -178,7 +178,7 @@ export default function UpsPricePage() {
           <div className="flex justify-end">
             <Button
               variant="outline"
-              className="h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50 hover:text-stone-800"
+              className="h-9 rounded-xl border-border/50 bg-transparent hover:bg-secondary/60 text-muted-foreground"
               onClick={() => setDialogOpen(true)}
             >
               <Plus className="mr-1.5 size-3.5" />
@@ -190,8 +190,8 @@ export default function UpsPricePage() {
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogContent className="sm:max-w-lg">
               <DialogHeader>
-                <DialogTitle className="text-lg font-light tracking-tight text-stone-800">新增 UPS 价格</DialogTitle>
-                <DialogDescription className="text-sm text-stone-400">填写以下信息添加新的 UPS 价格记录</DialogDescription>
+                <DialogTitle className="text-lg font-extralight tracking-tight text-foreground/80">新增 UPS 价格</DialogTitle>
+                <DialogDescription className="text-sm text-muted-foreground/50">填写以下信息添加新的 UPS 价格记录</DialogDescription>
               </DialogHeader>
               <PriceForm fields={formFields} onSubmit={handleAdd} submitLabel="添加" />
             </DialogContent>
@@ -201,9 +201,9 @@ export default function UpsPricePage() {
         <TabsContent value="compare" className="mt-6 space-y-6">
           <div className="flex flex-wrap items-end gap-3">
             <div className="grid gap-1">
-              <Label className="text-xs text-stone-400">目的地区</Label>
+              <Label className="text-xs text-muted-foreground/50">目的地区</Label>
               <Select value={compareRegion} onValueChange={(v) => v && setCompareRegion(v)}>
-                <SelectTrigger className="h-9 w-40 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
+                <SelectTrigger className="h-9 w-40 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -216,9 +216,9 @@ export default function UpsPricePage() {
               </Select>
             </div>
             <div className="grid gap-1">
-              <Label className="text-xs text-stone-400">区域</Label>
+              <Label className="text-xs text-muted-foreground/50">区域</Label>
               <Select value={compareZone} onValueChange={(v) => v && setCompareZone(v)}>
-                <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
+                <SelectTrigger className="h-9 w-32 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -237,9 +237,9 @@ export default function UpsPricePage() {
         <TabsContent value="trend" className="mt-6 space-y-6">
           <div className="flex flex-wrap items-end gap-3">
             <div className="grid gap-1">
-              <Label className="text-xs text-stone-400">目的地区</Label>
+              <Label className="text-xs text-muted-foreground/50">目的地区</Label>
               <Select value={trendRegion} onValueChange={(v) => v && setTrendRegion(v)}>
-                <SelectTrigger className="h-9 w-40 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
+                <SelectTrigger className="h-9 w-40 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -252,9 +252,9 @@ export default function UpsPricePage() {
               </Select>
             </div>
             <div className="grid gap-1">
-              <Label className="text-xs text-stone-400">区域</Label>
+              <Label className="text-xs text-muted-foreground/50">区域</Label>
               <Select value={trendZone} onValueChange={(v) => v && setTrendZone(v)}>
-                <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
+                <SelectTrigger className="h-9 w-32 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

@@ -133,19 +133,19 @@ const MOCK_DATA: DashboardData = {
 };
 
 const BRAND_COLORS: Record<string, string> = {
-  LM: "#7c9a92",
-  "LM-TT": "#a8b5ae",
-  FD: "#c4938a",
-  "FD-TT": "#d4a69a",
+  LM: "#8faa9f",
+  "LM-TT": "#b5c4bb",
+  FD: "#c4b0a8",
+  "FD-TT": "#d4c4bc",
 };
 
 const CHANNEL_COLORS: Record<string, string> = {
-  UPS: "#7c9a92",
-  空运: "#b8a9c9",
-  海运: "#c9b896",
+  UPS: "#8faa9f",
+  空运: "#b5b8c4",
+  海运: "#c4bfab",
 };
 
-const PIE_COLORS = ["#7c9a92", "#b8a9c9", "#c9b896"];
+const PIE_COLORS = ["#8faa9f", "#b5b8c4", "#c4bfab"];
 
 // --- Helper: transform trend data for Recharts ---
 function transformTrendData(trend: FeeRatioTrendItem[]) {
@@ -188,7 +188,6 @@ function getProviderTimelinessTrend(data: ProviderTimelinessItem[]) {
     for (const provider of providersList) {
       const item = data.find((d) => d.provider === provider);
       const base = item ? item.avgDays : 0;
-      // Add slight variation for trend visualization
       const variation = (Math.random() - 0.5) * 4;
       row[provider] = Math.max(0, Math.round((base + variation) * 10) / 10);
     }
@@ -207,14 +206,17 @@ function getChannelVolumeByBrand() {
 
 // --- Soft tooltip style ---
 const SOFT_TOOLTIP_STYLE: React.CSSProperties = {
-  backgroundColor: "rgba(255, 255, 255, 0.92)",
-  border: "1px solid #e7e5e4",
-  borderRadius: "8px",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-  padding: "8px 12px",
+  backgroundColor: "rgba(255, 255, 255, 0.95)",
+  border: "1px solid #eae8e5",
+  borderRadius: "12px",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
+  padding: "10px 14px",
   fontSize: "12px",
-  color: "#44403c",
+  fontWeight: 300,
+  color: "#5c5955",
 };
+
+const CHART_TICK = { fill: "#9c9894", fontSize: 11 };
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData>(MOCK_DATA);
@@ -234,7 +236,6 @@ export default function DashboardPage() {
       const res = await fetch(`/api/dashboard?${params.toString()}`);
       const json: DashboardData = await res.json();
 
-      // Use mock data as fallback if API returns empty
       const hasData =
         json.brandFeeRank.length > 0 ||
         json.channelVolume.length > 0 ||
@@ -242,7 +243,6 @@ export default function DashboardPage() {
 
       if (hasData) {
         setData(json);
-        // Update brand list from data
         const brandsFromData = [...new Set(json.brandFeeRank.map((b) => b.brand))];
         if (brandsFromData.length > 0) {
           setAllBrands(brandsFromData);
@@ -269,10 +269,10 @@ export default function DashboardPage() {
   const providersList = [...new Set(data.providerTimeliness.map((d) => d.provider))];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-xl font-light tracking-tight text-stone-800">数据看板</h1>
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">数据看板</h1>
         <Filters
           brands={allBrands}
           selectedBrands={selectedBrands}
@@ -283,39 +283,35 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
         <KpiCard
           title="物流费率"
           value={`${(data.kpi.feeRatio * 100).toFixed(2)}%`}
           description="物流成本 / 销售金额"
-          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
         <KpiCard
           title="平均时效"
           value={`${data.kpi.avgDays} 天`}
           description="平均实际运输天数"
-          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
         <KpiCard
           title="总发货量"
           value={data.kpi.totalQty.toLocaleString()}
           description="统计周期内总发货件数"
-          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
         <KpiCard
           title="物流总成本"
           value={`¥${data.kpi.totalCost.toLocaleString()}`}
           description="统计周期内物流费用合计"
-          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {/* 1. Fee ratio trend line chart */}
         <Card>
-          <CardHeader className="border-0 pb-2">
-            <CardTitle className="text-sm font-normal text-stone-500">费率趋势（按品牌）</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>费率趋势（按品牌）</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -324,13 +320,13 @@ export default function DashboardPage() {
                   <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="month"
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     tickFormatter={(v: string) => v.slice(5)}
-                    axisLine={{ stroke: "#e7e5e4" }}
+                    axisLine={{ stroke: "#eae8e5" }}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     tickFormatter={(v: number) => `${(v * 100).toFixed(1)}%`}
                     axisLine={false}
                     tickLine={false}
@@ -340,15 +336,15 @@ export default function DashboardPage() {
                     formatter={(value) => `${(Number(value) * 100).toFixed(2)}%`}
                     labelFormatter={(label) => `月份: ${String(label)}`}
                   />
-                  <Legend />
+                  <Legend wrapperStyle={{ fontSize: 12, fontWeight: 300 }} />
                   {allBrands.map((brand) => (
                     <Line
                       key={brand}
                       type="monotone"
                       dataKey={brand}
-                      stroke={BRAND_COLORS[brand] || "#6b7280"}
-                      strokeWidth={2}
-                      dot={{ r: 3 }}
+                      stroke={BRAND_COLORS[brand] || "#9c9894"}
+                      strokeWidth={1.5}
+                      dot={{ r: 2, strokeWidth: 0 }}
                       connectNulls
                     />
                   ))}
@@ -360,8 +356,8 @@ export default function DashboardPage() {
 
         {/* 2. Brand fee ratio rank bar chart (horizontal) */}
         <Card>
-          <CardHeader className="border-0 pb-2">
-            <CardTitle className="text-sm font-normal text-stone-500">品牌费率排名</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>品牌费率排名</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -374,15 +370,15 @@ export default function DashboardPage() {
                   <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     type="number"
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     tickFormatter={(v: number) => `${(v * 100).toFixed(1)}%`}
-                    axisLine={{ stroke: "#e7e5e4" }}
+                    axisLine={{ stroke: "#eae8e5" }}
                     tickLine={false}
                   />
                   <YAxis
                     type="category"
                     dataKey="brand"
-                    tick={{ fill: "#a8a29e", fontSize: 12 }}
+                    tick={{ fill: "#9c9894", fontSize: 12, fontWeight: 300 }}
                     width={60}
                     axisLine={false}
                     tickLine={false}
@@ -391,11 +387,11 @@ export default function DashboardPage() {
                     contentStyle={SOFT_TOOLTIP_STYLE}
                     formatter={(value) => `${(Number(value) * 100).toFixed(2)}%`}
                   />
-                  <Bar dataKey="feeRatio" radius={[0, 4, 4, 0]}>
+                  <Bar dataKey="feeRatio" radius={[0, 6, 6, 0]} barSize={20}>
                     {data.brandFeeRank.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
-                        fill={BRAND_COLORS[entry.brand] || "#6b7280"}
+                        fill={BRAND_COLORS[entry.brand] || "#9c9894"}
                       />
                     ))}
                   </Bar>
@@ -407,8 +403,8 @@ export default function DashboardPage() {
 
         {/* 3. Provider timeliness comparison (grouped bar) */}
         <Card>
-          <CardHeader className="border-0 pb-2">
-            <CardTitle className="text-sm font-normal text-stone-500">服务商时效对比</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>服务商时效对比</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -417,16 +413,16 @@ export default function DashboardPage() {
                   <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="provider"
-                    tick={{ fill: "#a8a29e", fontSize: 10 }}
+                    tick={{ fill: "#9c9894", fontSize: 10, fontWeight: 300 }}
                     interval={0}
                     angle={-15}
                     textAnchor="end"
                     height={60}
-                    axisLine={{ stroke: "#e7e5e4" }}
+                    axisLine={{ stroke: "#eae8e5" }}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     unit="天"
                     axisLine={false}
                     tickLine={false}
@@ -435,13 +431,14 @@ export default function DashboardPage() {
                     contentStyle={SOFT_TOOLTIP_STYLE}
                     formatter={(value) => `${Number(value)} 天`}
                   />
-                  <Legend />
+                  <Legend wrapperStyle={{ fontSize: 12, fontWeight: 300 }} />
                   {channelsList.map((channel) => (
                     <Bar
                       key={channel}
                       dataKey={channel}
-                      fill={CHANNEL_COLORS[channel] || "#6b7280"}
-                      radius={[4, 4, 0, 0]}
+                      fill={CHANNEL_COLORS[channel] || "#9c9894"}
+                      radius={[6, 6, 0, 0]}
+                      barSize={16}
                     />
                   ))}
                 </BarChart>
@@ -452,8 +449,8 @@ export default function DashboardPage() {
 
         {/* 4. Provider timeliness trend (line) */}
         <Card>
-          <CardHeader className="border-0 pb-2">
-            <CardTitle className="text-sm font-normal text-stone-500">服务商时效趋势</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>服务商时效趋势</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -462,13 +459,13 @@ export default function DashboardPage() {
                   <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="month"
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     tickFormatter={(v: string) => v.slice(5)}
-                    axisLine={{ stroke: "#e7e5e4" }}
+                    axisLine={{ stroke: "#eae8e5" }}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     unit="天"
                     axisLine={false}
                     tickLine={false}
@@ -477,15 +474,15 @@ export default function DashboardPage() {
                     contentStyle={SOFT_TOOLTIP_STYLE}
                     formatter={(value) => `${Number(value)} 天`}
                   />
-                  <Legend />
+                  <Legend wrapperStyle={{ fontSize: 12, fontWeight: 300 }} />
                   {providersList.map((provider, idx) => (
                     <Line
                       key={provider}
                       type="monotone"
                       dataKey={provider}
                       stroke={PIE_COLORS[idx % PIE_COLORS.length]}
-                      strokeWidth={2}
-                      dot={{ r: 3 }}
+                      strokeWidth={1.5}
+                      dot={{ r: 2, strokeWidth: 0 }}
                       connectNulls
                     />
                   ))}
@@ -497,8 +494,8 @@ export default function DashboardPage() {
 
         {/* 5. Volume comparison (stacked bar by brand) */}
         <Card>
-          <CardHeader className="border-0 pb-2">
-            <CardTitle className="text-sm font-normal text-stone-500">渠道发货量对比</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>渠道发货量对比</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -507,26 +504,26 @@ export default function DashboardPage() {
                   <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="channel"
-                    tick={{ fill: "#a8a29e", fontSize: 12 }}
-                    axisLine={{ stroke: "#e7e5e4" }}
+                    tick={{ fill: "#9c9894", fontSize: 12, fontWeight: 300 }}
+                    axisLine={{ stroke: "#eae8e5" }}
                     tickLine={false}
                   />
                   <YAxis
-                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    tick={CHART_TICK}
                     axisLine={false}
                     tickLine={false}
                   />
                   <Tooltip contentStyle={SOFT_TOOLTIP_STYLE} />
-                  <Legend />
+                  <Legend wrapperStyle={{ fontSize: 12, fontWeight: 300 }} />
                   {allBrands.map((brand) => (
                     <Bar
                       key={brand}
                       dataKey={brand}
                       stackId="qty"
-                      fill={BRAND_COLORS[brand] || "#6b7280"}
+                      fill={BRAND_COLORS[brand] || "#9c9894"}
                       radius={
                         brand === allBrands[allBrands.length - 1]
-                          ? [4, 4, 0, 0]
+                          ? [6, 6, 0, 0]
                           : undefined
                       }
                     />
@@ -539,8 +536,8 @@ export default function DashboardPage() {
 
         {/* 6. Channel volume pie chart */}
         <Card>
-          <CardHeader className="border-0 pb-2">
-            <CardTitle className="text-sm font-normal text-stone-500">渠道占比</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle>渠道占比</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -552,7 +549,9 @@ export default function DashboardPage() {
                     nameKey="channel"
                     cx="50%"
                     cy="50%"
-                    outerRadius={90}
+                    outerRadius={85}
+                    innerRadius={50}
+                    strokeWidth={0}
                     label={({ name, percent }: { name?: string; percent?: number }) =>
                       `${name || ""} ${((percent || 0) * 100).toFixed(0)}%`
                     }
@@ -569,7 +568,7 @@ export default function DashboardPage() {
                     contentStyle={SOFT_TOOLTIP_STYLE}
                     formatter={(value) => Number(value).toLocaleString()}
                   />
-                  <Legend />
+                  <Legend wrapperStyle={{ fontSize: 12, fontWeight: 300 }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>

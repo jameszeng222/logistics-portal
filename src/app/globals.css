@@ -49,38 +49,38 @@
 }
 
 :root {
-	--background: #fafaf9;
-	--foreground: #1c1917;
+	--background: #f7f7f6;
+	--foreground: #2c2a28;
 	--card: #ffffff;
-	--card-foreground: #1c1917;
+	--card-foreground: #2c2a28;
 	--popover: #ffffff;
-	--popover-foreground: #1c1917;
-	--primary: #5f8a7e;
+	--popover-foreground: #2c2a28;
+	--primary: #8faa9f;
 	--primary-foreground: #ffffff;
-	--secondary: #f5f5f4;
-	--secondary-foreground: #1c1917;
-	--muted: #f5f5f4;
-	--muted-foreground: #78716c;
-	--accent: #5f8a7e;
+	--secondary: #f2f1ef;
+	--secondary-foreground: #2c2a28;
+	--muted: #f2f1ef;
+	--muted-foreground: #9c9894;
+	--accent: #8faa9f;
 	--accent-foreground: #ffffff;
-	--destructive: #c0392b;
-	--border: #e7e5e4;
-	--input: #e7e5e4;
-	--ring: #5f8a7e;
-	--chart-1: #5f8a7e;
-	--chart-2: #8fb3a9;
-	--chart-3: #78716c;
-	--chart-4: #a8a29e;
-	--chart-5: #44403c;
-	--radius: 0.625rem;
-	--sidebar: #f5f5f4;
-	--sidebar-foreground: #1c1917;
-	--sidebar-primary: #5f8a7e;
+	--destructive: #c47070;
+	--border: #eae8e5;
+	--input: #eae8e5;
+	--ring: #8faa9f;
+	--chart-1: #8faa9f;
+	--chart-2: #b5c4bb;
+	--chart-3: #9c9894;
+	--chart-4: #c4bfb8;
+	--chart-5: #5c5955;
+	--radius: 0.75rem;
+	--sidebar: #fafaf9;
+	--sidebar-foreground: #2c2a28;
+	--sidebar-primary: #8faa9f;
 	--sidebar-primary-foreground: #ffffff;
-	--sidebar-accent: #e7e5e4;
-	--sidebar-accent-foreground: #1c1917;
-	--sidebar-border: #e7e5e4;
-	--sidebar-ring: #5f8a7e;
+	--sidebar-accent: #f2f1ef;
+	--sidebar-accent-foreground: #2c2a28;
+	--sidebar-border: #eae8e5;
+	--sidebar-ring: #8faa9f;
 }
 
 @layer base {
@@ -96,10 +96,10 @@
 }
 
 @layer components {
-	/* Subtle card shadows — no ring borders */
+	/* No shadows, no borders — let whitespace define structure */
 	[data-slot="card"] {
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
 		border: none;
+		box-shadow: none;
 	}
 
 	/* Gentle transitions only */
@@ -108,6 +108,6 @@
 	a,
 	select,
 	input {
-		transition: all 0.15s ease;
+		transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 }
