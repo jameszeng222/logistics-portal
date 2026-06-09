@@ -26,11 +26,11 @@ const routeMap: Record<string, string> = {
 
 function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
   if (pathname === "/") {
-    return [{ label: "数据看板" }]
+    return [{ label: "价格管理" }]
   }
 
   const segments = pathname.split("/").filter(Boolean)
-  const items: BreadcrumbItem[] = [{ label: "数据看板", href: "/" }]
+  const items: BreadcrumbItem[] = []
 
   let currentPath = ""
   for (let i = 0; i < segments.length; i++) {
