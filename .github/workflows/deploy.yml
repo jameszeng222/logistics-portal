@@ -36,17 +36,24 @@ jobs:
       - name: 构建 Next.js
         run: npx @opennextjs/cloudflare build
 
-      # 将 worker.js 打包为 Pages Function (_worker.js)
-      - name: 打包 Worker 为 Pages Function
+      # 用 wrangler 内置打包器生成 _worker.js（确保与 workerd 运行时兼容）
+      - name: 打包 Worker
         run: |
-          npx esbuild .open-next/worker.js \
-            --bundle \
-            --outfile=.open-next/assets/_worker.js \
-            --format=esm \
-            --target=esnext \
-            --platform=node \
-            --external:cloudflare:* \
-            --minify
+          # 临时切换为 Workers 配置以使用 wrangler 内置打包
+          cat > /tmp/wrangler-workers.jsonc << 'WCFG'
+          {
+            "name": "logistics-portal",
+            "compatibility_date": "2026-06-09",
+            "compatibility_flags": ["nodejs_compat"],
+            "main": ".open-next/worker.js",
+            "minify": true,
+            "d1_databases": [{"binding": "DB", "database_name": "logistics-portal-db", "database_id": "60e5a405-3c79-460e-91aa-eb6fc8075b7c"}]
+          }
+          WCFG
+          rm -f .open-next/assets/_worker.js
+          touch .open-next/assets/.assetsignore
+          npx wrangler deploy --config /tmp/wrangler-workers.jsonc --dry-run --outdir=.open-next/wrangler-bundle
+          cp .open-next/wrangler-bundle/worker.js .open-next/assets/_worker.js
 
       # 部署到 Cloudflare Pages
       - name: 部署到 Cloudflare Pages
