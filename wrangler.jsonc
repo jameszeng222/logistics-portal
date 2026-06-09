@@ -1,39 +1,22 @@
 /**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
+ * Cloudflare Pages configuration for logistics-portal
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "logistics-portal",
-	"main": ".open-next/worker.js",
 	"compatibility_date": "2026-06-09",
 	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
+		"nodejs_compat"
 	],
-	"assets": {
-		"binding": "ASSETS",
-		"directory": ".open-next/assets"
-	},
-	"images": {
-		"binding": "IMAGES"
-	},
-	"services": [
-		{
-			"binding": "WORKER_SELF_REFERENCE",
-			"service": "logistics-portal"
-		}
-	],
+	"pages_build_output_dir": ".open-next/assets",
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_name": "logistics-portal-db",
-			"database_id": "placeholder-create-with-wrangler-d1-create",
-			"migrations_dir": "drizzle"
+			"database_id": "60e5a405-3c79-460e-91aa-eb6fc8075b7c"
 		}
 	],
 	"observability": {
 		"enabled": true
-	},
-	"upload_source_maps": true
+	}
 }
