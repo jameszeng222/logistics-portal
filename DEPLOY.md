@@ -68,6 +68,39 @@ git commit --allow-empty -m "trigger redeploy with D1 binding"
 git push
 ```
 
+## GitHub Actions 自动部署
+
+项目已配置 GitHub Actions 工作流（`.github/workflows/deploy.yml`），推送到 `main` 分支时会自动构建并部署到 Cloudflare Workers。
+
+### 工作流流程
+
+1. 触发条件：推送到 `main` 分支
+2. 检出代码 → 设置 Node.js 20 → 安装依赖 → 构建 → 部署
+
+### 配置 GitHub Secrets
+
+在 GitHub 仓库中添加以下 Secrets（**Settings → Secrets and variables → Actions → New repository secret**）：
+
+| Secret 名称 | 说明 | 示例值 |
+|---|---|---|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API 令牌（需有 Workers 编辑权限） | 在 [Cloudflare Dashboard](https://dash.cloudflare.com/profile/api-tokens) 创建 |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 账户 ID | `e127afc38633e1411484b05a142f554f` |
+
+#### 创建 Cloudflare API Token
+
+1. 登录 [Cloudflare API Tokens 页面](https://dash.cloudflare.com/profile/api-tokens)
+2. 点击 **Create Token**
+3. 选择 **Edit Cloudflare Workers** 模板
+4. 确认权限包含：
+   - Account - Workers Scripts - Edit
+   - Account - Workers KV Storage - Edit（如使用 KV）
+   - Zone - Workers Routes - Edit（如配置路由）
+5. 创建后复制令牌值，添加为 GitHub Secret `CLOUDFLARE_API_TOKEN`
+
+### 手动触发部署
+
+如需手动触发部署，可在 GitHub 仓库的 **Actions** 页面选择工作流并点击 **Run workflow**（需在 `deploy.yml` 中添加 `workflow_dispatch` 触发器）。
+
 ## 本地开发
 
 ```bash
