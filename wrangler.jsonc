@@ -1,20 +1,14 @@
 /**
- * Cloudflare Workers + Static Assets configuration for logistics-portal
- * OpenNext 官方推荐使用 Workers 部署方式（含 main + assets）
- * 部署后自动获得 *.pages.dev 域名
+ * Cloudflare Pages configuration for logistics-portal
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "logistics-portal",
-	"main": ".open-next/worker.js",
 	"compatibility_date": "2026-06-09",
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
-	"assets": {
-		"directory": ".open-next/assets",
-		"binding": "ASSETS"
-	},
+	"pages_build_output_dir": ".open-next/assets",
 	"d1_databases": [
 		{
 			"binding": "DB",
