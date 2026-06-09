@@ -11,7 +11,6 @@ import {
   Wrench,
   ClipboardCheck,
   Users,
-  FileText,
   ChevronLeft,
   ChevronRight,
   ChevronDown,
@@ -68,17 +67,8 @@ const navItems: NavItem[] = [
       { label: "时效考核", href: "/assessment/timeliness", icon: <Clock className="size-4" /> },
       { label: "验货考核", href: "/assessment/inspection", icon: <ShieldCheck className="size-4" /> },
       { label: "综合考核", href: "/assessment/comprehensive", icon: <BarChart3 className="size-4" /> },
+      { label: "服务商列表", href: "/providers", icon: <Users className="size-4" /> },
     ],
-  },
-  {
-    label: "服务商管理",
-    href: "/providers",
-    icon: <Users className="size-4" />,
-  },
-  {
-    label: "周报管理",
-    href: "/weekly-reports",
-    icon: <FileText className="size-4" />,
   },
 ]
 
@@ -115,7 +105,7 @@ export function Sidebar() {
       {/* Header */}
       <div className="flex h-14 items-center justify-between px-4">
         {!collapsed && (
-          <span className="text-[12px] font-light tracking-[0.08em] text-muted-foreground/80 uppercase">
+          <span className="text-[12px] font-light tracking-[0.08em] text-muted-foreground uppercase">
             Logistics
           </span>
         )}
@@ -123,7 +113,7 @@ export function Sidebar() {
           variant="ghost"
           size="icon-sm"
           onClick={() => setCollapsed(!collapsed)}
-          className="shrink-0 text-muted-foreground/50 hover:text-muted-foreground"
+          className="shrink-0 text-muted-foreground hover:text-foreground"
         >
           {collapsed ? <ChevronRight className="size-3" /> : <ChevronLeft className="size-3" />}
         </Button>
@@ -140,7 +130,7 @@ export function Sidebar() {
                     onClick={() => !collapsed && toggleGroup(item.label)}
                     className={cn(
                       "flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] transition-colors",
-                      "text-muted-foreground/70 hover:text-foreground hover:bg-secondary/60",
+                      "text-muted-foreground hover:text-foreground hover:bg-secondary/60",
                       isGroupActive(item.children) && !collapsed && "text-foreground"
                     )}
                   >
@@ -150,7 +140,7 @@ export function Sidebar() {
                         <span className="flex-1 text-left font-light">{item.label}</span>
                         <ChevronDown
                           className={cn(
-                            "size-3 shrink-0 text-muted-foreground/40 transition-transform duration-200",
+                            "size-3 shrink-0 text-muted-foreground transition-transform duration-200",
                             expandedGroups[item.label] && "rotate-180"
                           )}
                         />
@@ -158,7 +148,7 @@ export function Sidebar() {
                     )}
                   </button>
                   {!collapsed && expandedGroups[item.label] && (
-                    <ul className="ml-5 mt-0.5 flex flex-col gap-0.5 border-l border-border/30 pl-3">
+                    <ul className="ml-5 mt-0.5 flex flex-col gap-0.5 border-l border-border/40 pl-3">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
@@ -168,7 +158,7 @@ export function Sidebar() {
                               "hover:bg-secondary/60 hover:text-foreground",
                               isActive(child.href)
                                 ? "text-foreground bg-secondary/80"
-                                : "text-muted-foreground/60"
+                                : "text-muted-foreground"
                             )}
                           >
                             <span className="shrink-0">{child.icon}</span>
@@ -187,7 +177,7 @@ export function Sidebar() {
                     "hover:bg-secondary/60 hover:text-foreground",
                     isActive(item.href!)
                       ? "bg-secondary/80 text-foreground"
-                      : "text-muted-foreground/70"
+                      : "text-muted-foreground"
                   )}
                 >
                   <span className="shrink-0">{item.icon}</span>

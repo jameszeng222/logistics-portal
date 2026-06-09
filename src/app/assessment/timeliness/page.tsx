@@ -117,10 +117,10 @@ export default function TimelinessPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">时效考核</h1>
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground">时效考核</h1>
         <div className="flex flex-wrap gap-3">
           <Select value={period} onValueChange={(v) => v && setPeriod(v)}>
-            <SelectTrigger className="h-9 w-32 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
+            <SelectTrigger className="h-9 w-32 rounded-xl border-border bg-white text-foreground font-light">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -129,7 +129,7 @@ export default function TimelinessPage() {
             </SelectContent>
           </Select>
           <Select value={channelId} onValueChange={(v) => setChannelId(v ?? "")}>
-            <SelectTrigger className="h-9 w-32 rounded-xl border-border/50 bg-white/80 text-foreground/80 font-light">
+            <SelectTrigger className="h-9 w-32 rounded-xl border-border bg-white text-foreground font-light">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -145,38 +145,38 @@ export default function TimelinessPage() {
 
       {/* 汇总卡片 */}
       <div className="grid gap-5 sm:grid-cols-3">
-        <Card className="border-border/30 shadow-none">
+        <Card className="border-border/50 shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-[11px] font-light text-muted-foreground/60 uppercase tracking-widest">
+            <CardTitle className="text-[11px] font-light text-muted-foreground uppercase tracking-widest">
               整体时效达成率
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <span className="text-2xl font-extralight text-foreground/80">{overallRate}%</span>
+            <span className="text-2xl font-extralight text-foreground">{overallRate}%</span>
           </CardContent>
         </Card>
-        <Card className="border-border/30 shadow-none">
+        <Card className="border-border/50 shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-[11px] font-light text-muted-foreground/60 uppercase tracking-widest">
+            <CardTitle className="text-[11px] font-light text-muted-foreground uppercase tracking-widest">
               最优服务商
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-extralight text-foreground/80">{bestProvider?.providerName ?? "-"}</div>
-            <p className="text-xs text-muted-foreground/50">
+            <div className="text-2xl font-extralight text-foreground">{bestProvider?.providerName ?? "-"}</div>
+            <p className="text-xs text-muted-foreground">
               达成率 {bestProvider?.achievementRate ?? 0}%
             </p>
           </CardContent>
         </Card>
-        <Card className="border-border/30 shadow-none">
+        <Card className="border-border/50 shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-[11px] font-light text-muted-foreground/60 uppercase tracking-widest">
+            <CardTitle className="text-[11px] font-light text-muted-foreground uppercase tracking-widest">
               最差服务商
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-extralight text-foreground/80">{worstProvider?.providerName ?? "-"}</div>
-            <p className="text-xs text-muted-foreground/50">
+            <div className="text-2xl font-extralight text-foreground">{worstProvider?.providerName ?? "-"}</div>
+            <p className="text-xs text-muted-foreground">
               达成率 {worstProvider?.achievementRate ?? 0}%
             </p>
           </CardContent>
@@ -184,34 +184,34 @@ export default function TimelinessPage() {
       </div>
 
       {/* 按服务商汇总表 */}
-      <Card className="border-border/30 shadow-none">
+      <Card className="border-border/50 shadow-none">
         <CardHeader>
-          <CardTitle className="text-sm font-light text-muted-foreground/60">服务商时效达成率</CardTitle>
+          <CardTitle className="text-sm font-light text-muted-foreground">服务商时效达成率</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="text-muted-foreground/50 font-light">服务商</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">承诺天数</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">实际天数</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">达成率</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">记录数</TableHead>
+                <TableHead className="text-muted-foreground font-light">服务商</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">承诺天数</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">实际天数</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">达成率</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">记录数</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.byProvider.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center text-sm text-stone-400">
+                  <TableCell colSpan={5} className="h-24 text-center text-sm text-muted-foreground">
                     暂无数据
                   </TableCell>
                 </TableRow>
               ) : (
                 data.byProvider.map((row) => (
                   <TableRow key={`${row.providerName}-${row.channelId}`}>
-                    <TableCell className="font-medium text-stone-700">{row.providerName}</TableCell>
-                    <TableCell className="text-right text-stone-500">{row.avgPromisedDays}</TableCell>
-                    <TableCell className="text-right text-stone-500">{row.avgActualDays}</TableCell>
+                    <TableCell className="font-medium text-foreground">{row.providerName}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{row.avgPromisedDays}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{row.avgActualDays}</TableCell>
                     <TableCell className="text-right">
                       <span
                         className={
@@ -227,7 +227,7 @@ export default function TimelinessPage() {
                         {row.achievementRate}%
                       </span>
                     </TableCell>
-                    <TableCell className="text-right text-stone-500">{row.totalRecords}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{row.totalRecords}</TableCell>
                   </TableRow>
                 ))
               )}
@@ -245,38 +245,38 @@ export default function TimelinessPage() {
       />
 
       {/* 渠道×服务商明细 */}
-      <Card className="border-border/30 shadow-none">
+      <Card className="border-border/50 shadow-none">
         <CardHeader>
-          <CardTitle className="text-sm font-light text-muted-foreground/60">渠道×服务商达成率</CardTitle>
+          <CardTitle className="text-sm font-light text-muted-foreground">渠道×服务商达成率</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="text-muted-foreground/50 font-light">服务商</TableHead>
-                <TableHead className="text-muted-foreground/50 font-light">渠道</TableHead>
-                <TableHead className="text-muted-foreground/50 font-light">月份</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">承诺天数</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">实际天数</TableHead>
-                <TableHead className="text-right text-muted-foreground/50 font-light">达成率</TableHead>
+                <TableHead className="text-muted-foreground font-light">服务商</TableHead>
+                <TableHead className="text-muted-foreground font-light">渠道</TableHead>
+                <TableHead className="text-muted-foreground font-light">月份</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">承诺天数</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">实际天数</TableHead>
+                <TableHead className="text-right text-muted-foreground font-light">达成率</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.details.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="h-24 text-center text-sm text-stone-400">
+                  <TableCell colSpan={6} className="h-24 text-center text-sm text-muted-foreground">
                     暂无数据
                   </TableCell>
                 </TableRow>
               ) : (
                 data.details.map((row, idx) => (
                   <TableRow key={idx}>
-                    <TableCell className="font-medium text-stone-700">{row.providerName}</TableCell>
-                    <TableCell className="text-stone-500">{row.channelName}</TableCell>
-                    <TableCell className="text-stone-500">{row.month}</TableCell>
-                    <TableCell className="text-right text-stone-500">{row.promisedDays}</TableCell>
-                    <TableCell className="text-right text-stone-500">{row.actualDays}</TableCell>
-                    <TableCell className="text-right text-stone-500">{row.onTime}%</TableCell>
+                    <TableCell className="font-medium text-foreground">{row.providerName}</TableCell>
+                    <TableCell className="text-muted-foreground">{row.channelName}</TableCell>
+                    <TableCell className="text-muted-foreground">{row.month}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{row.promisedDays}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{row.actualDays}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{row.onTime}%</TableCell>
                   </TableRow>
                 ))
               )}

@@ -21,8 +21,7 @@ const routeMap: Record<string, string> = {
   "timeliness": "时效考核",
   "inspection": "验货考核",
   "comprehensive": "综合考核",
-  "providers": "服务商管理",
-  "weekly-reports": "周报管理",
+  "providers": "服务商列表",
 }
 
 function buildBreadcrumbs(pathname: string): BreadcrumbItem[] {
@@ -57,17 +56,17 @@ export function Header() {
         {breadcrumbs.map((item, index) => (
           <span key={index} className="flex items-center gap-1.5">
             {index > 0 && (
-              <ChevronRight className="size-2.5 text-muted-foreground/30" />
+              <ChevronRight className="size-2.5 text-muted-foreground" />
             )}
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-muted-foreground/50 transition-colors hover:text-muted-foreground"
+                className="text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-foreground/70 font-light">{item.label}</span>
+              <span className="text-foreground font-light">{item.label}</span>
             )}
           </span>
         ))}

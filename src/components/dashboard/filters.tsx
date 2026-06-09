@@ -55,7 +55,7 @@ export function Filters({
             size="sm"
             className={`h-7 px-3 text-xs ${
               timeRange === opt.value
-                ? "bg-accent/8 text-accent border border-accent/15"
+                ? "bg-accent/10 text-accent border border-accent/15"
                 : ""
             }`}
             onClick={() => onTimeRangeChange(opt.value)}
@@ -70,12 +70,12 @@ export function Filters({
         <Button
           variant="outline"
           size="sm"
-          className="h-7 gap-1 text-xs border-border/50 bg-transparent hover:bg-secondary/60 text-muted-foreground rounded-xl"
+          className="h-7 gap-1 text-xs border-border bg-transparent hover:bg-secondary/60 text-muted-foreground rounded-xl"
           onClick={() => setBrandDropdownOpen(!brandDropdownOpen)}
         >
           品牌
           {selectedBrands.length > 0 && (
-            <span className="ml-1 rounded-full bg-accent/8 px-1.5 py-0.5 text-[10px] text-accent">
+            <span className="ml-1 rounded-full bg-accent/10 px-1.5 py-0.5 text-[10px] text-accent">
               {selectedBrands.length}
             </span>
           )}
@@ -87,12 +87,12 @@ export function Filters({
               className="fixed inset-0 z-40"
               onClick={() => setBrandDropdownOpen(false)}
             />
-            <div className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-xl border border-border/40 bg-white/95 p-2 shadow-none">
+            <div className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-xl border border-border/50 bg-white p-2 shadow-none">
               <div className="mb-1 flex gap-1">
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 px-2 text-[10px] text-muted-foreground/60"
+                  className="h-6 px-2 text-[10px] text-muted-foreground"
                   onClick={selectAllBrands}
                 >
                   全选
@@ -100,7 +100,7 @@ export function Filters({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 px-2 text-[10px] text-muted-foreground/60"
+                  className="h-6 px-2 text-[10px] text-muted-foreground"
                   onClick={clearBrands}
                 >
                   清空
@@ -110,13 +110,13 @@ export function Filters({
                 {brands.map((brand) => (
                   <label
                     key={brand}
-                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-xs text-foreground/80 hover:bg-secondary/60"
+                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-xs text-foreground hover:bg-secondary/60"
                   >
                     <input
                       type="checkbox"
                       checked={selectedBrands.includes(brand)}
                       onChange={() => toggleBrand(brand)}
-                      className="rounded border-border/40"
+                      className="rounded border-border/50"
                     />
                     {brand}
                   </label>

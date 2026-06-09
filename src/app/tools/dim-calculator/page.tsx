@@ -9,8 +9,8 @@ export default function DimCalculatorPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">分泡计算器</h1>
-        <p className="mt-1 text-sm text-muted-foreground/50 font-light">
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground">分泡计算器</h1>
+        <p className="mt-1 text-sm text-muted-foreground font-light">
           计算体积重量与分泡比例，支持单箱和批量计算
         </p>
       </div>

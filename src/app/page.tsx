@@ -133,19 +133,19 @@ const MOCK_DATA: DashboardData = {
 };
 
 const BRAND_COLORS: Record<string, string> = {
-  LM: "#8faa9f",
-  "LM-TT": "#b5c4bb",
-  FD: "#c4b0a8",
-  "FD-TT": "#d4c4bc",
+  LM: "#7a9e91",
+  "LM-TT": "#a3b8ae",
+  FD: "#b8a098",
+  "FD-TT": "#c8b4ac",
 };
 
 const CHANNEL_COLORS: Record<string, string> = {
-  UPS: "#8faa9f",
-  空运: "#b5b8c4",
-  海运: "#c4bfab",
+  UPS: "#7a9e91",
+  空运: "#a3a8b8",
+  海运: "#b8b49e",
 };
 
-const PIE_COLORS = ["#8faa9f", "#b5b8c4", "#c4bfab"];
+const PIE_COLORS = ["#7a9e91", "#a3a8b8", "#b8b49e"];
 
 // --- Helper: transform trend data for Recharts ---
 function transformTrendData(trend: FeeRatioTrendItem[]) {
@@ -272,7 +272,7 @@ export default function DashboardPage() {
     <div className="space-y-10">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-extralight tracking-tight text-foreground/80">数据看板</h1>
+        <h1 className="text-2xl font-extralight tracking-tight text-foreground">数据看板</h1>
         <Filters
           brands={allBrands}
           selectedBrands={selectedBrands}
