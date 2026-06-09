@@ -117,10 +117,10 @@ export default function TimelinessPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-semibold">时效考核</h1>
+        <h1 className="text-xl font-light tracking-tight text-stone-800">时效考核</h1>
         <div className="flex flex-wrap gap-3">
           <Select value={period} onValueChange={(v) => v && setPeriod(v)}>
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -129,7 +129,7 @@ export default function TimelinessPage() {
             </SelectContent>
           </Select>
           <Select value={channelId} onValueChange={(v) => setChannelId(v ?? "")}>
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -144,39 +144,39 @@ export default function TimelinessPage() {
       </div>
 
       {/* 汇总卡片 */}
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
+      <div className="grid gap-5 sm:grid-cols-3">
+        <Card className="border-stone-200/60 shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-xs font-normal text-stone-400">
               整体时效达成率
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <span className="text-2xl font-bold">{overallRate}%</span>
+            <span className="text-2xl font-light tracking-tight text-stone-800">{overallRate}%</span>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-stone-200/60 shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-xs font-normal text-stone-400">
               最优服务商
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{bestProvider?.providerName ?? "-"}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-light tracking-tight text-stone-800">{bestProvider?.providerName ?? "-"}</div>
+            <p className="text-xs text-stone-400">
               达成率 {bestProvider?.achievementRate ?? 0}%
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-stone-200/60 shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardTitle className="text-xs font-normal text-stone-400">
               最差服务商
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{worstProvider?.providerName ?? "-"}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-light tracking-tight text-stone-800">{worstProvider?.providerName ?? "-"}</div>
+            <p className="text-xs text-stone-400">
               达成率 {worstProvider?.achievementRate ?? 0}%
             </p>
           </CardContent>
@@ -184,50 +184,50 @@ export default function TimelinessPage() {
       </div>
 
       {/* 按服务商汇总表 */}
-      <Card>
+      <Card className="border-stone-200/60 shadow-none">
         <CardHeader>
-          <CardTitle>服务商时效达成率</CardTitle>
+          <CardTitle className="text-sm font-normal text-stone-500">服务商时效达成率</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>服务商</TableHead>
-                <TableHead className="text-right">承诺天数</TableHead>
-                <TableHead className="text-right">实际天数</TableHead>
-                <TableHead className="text-right">达成率</TableHead>
-                <TableHead className="text-right">记录数</TableHead>
+                <TableHead className="text-stone-400 font-normal">服务商</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">承诺天数</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">实际天数</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">达成率</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">记录数</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.byProvider.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={5} className="h-24 text-center text-sm text-stone-400">
                     暂无数据
                   </TableCell>
                 </TableRow>
               ) : (
                 data.byProvider.map((row) => (
                   <TableRow key={`${row.providerName}-${row.channelId}`}>
-                    <TableCell className="font-medium">{row.providerName}</TableCell>
-                    <TableCell className="text-right">{row.avgPromisedDays}</TableCell>
-                    <TableCell className="text-right">{row.avgActualDays}</TableCell>
+                    <TableCell className="font-medium text-stone-700">{row.providerName}</TableCell>
+                    <TableCell className="text-right text-stone-500">{row.avgPromisedDays}</TableCell>
+                    <TableCell className="text-right text-stone-500">{row.avgActualDays}</TableCell>
                     <TableCell className="text-right">
                       <span
                         className={
                           row.achievementRate >= 90
-                            ? "text-green-600 dark:text-green-400"
+                            ? "text-emerald-600"
                             : row.achievementRate >= 75
-                              ? "text-blue-600 dark:text-blue-400"
+                              ? "text-sky-600"
                               : row.achievementRate >= 60
-                                ? "text-yellow-600 dark:text-yellow-400"
-                                : "text-red-600 dark:text-red-400"
+                                ? "text-amber-600"
+                                : "text-rose-500"
                         }
                       >
                         {row.achievementRate}%
                       </span>
                     </TableCell>
-                    <TableCell className="text-right">{row.totalRecords}</TableCell>
+                    <TableCell className="text-right text-stone-500">{row.totalRecords}</TableCell>
                   </TableRow>
                 ))
               )}
@@ -245,38 +245,38 @@ export default function TimelinessPage() {
       />
 
       {/* 渠道×服务商明细 */}
-      <Card>
+      <Card className="border-stone-200/60 shadow-none">
         <CardHeader>
-          <CardTitle>渠道×服务商达成率</CardTitle>
+          <CardTitle className="text-sm font-normal text-stone-500">渠道×服务商达成率</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>服务商</TableHead>
-                <TableHead>渠道</TableHead>
-                <TableHead>月份</TableHead>
-                <TableHead className="text-right">承诺天数</TableHead>
-                <TableHead className="text-right">实际天数</TableHead>
-                <TableHead className="text-right">达成率</TableHead>
+                <TableHead className="text-stone-400 font-normal">服务商</TableHead>
+                <TableHead className="text-stone-400 font-normal">渠道</TableHead>
+                <TableHead className="text-stone-400 font-normal">月份</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">承诺天数</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">实际天数</TableHead>
+                <TableHead className="text-right text-stone-400 font-normal">达成率</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.details.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                  <TableCell colSpan={6} className="h-24 text-center text-sm text-stone-400">
                     暂无数据
                   </TableCell>
                 </TableRow>
               ) : (
                 data.details.map((row, idx) => (
                   <TableRow key={idx}>
-                    <TableCell className="font-medium">{row.providerName}</TableCell>
-                    <TableCell>{row.channelName}</TableCell>
-                    <TableCell>{row.month}</TableCell>
-                    <TableCell className="text-right">{row.promisedDays}</TableCell>
-                    <TableCell className="text-right">{row.actualDays}</TableCell>
-                    <TableCell className="text-right">{row.onTime}%</TableCell>
+                    <TableCell className="font-medium text-stone-700">{row.providerName}</TableCell>
+                    <TableCell className="text-stone-500">{row.channelName}</TableCell>
+                    <TableCell className="text-stone-500">{row.month}</TableCell>
+                    <TableCell className="text-right text-stone-500">{row.promisedDays}</TableCell>
+                    <TableCell className="text-right text-stone-500">{row.actualDays}</TableCell>
+                    <TableCell className="text-right text-stone-500">{row.onTime}%</TableCell>
                   </TableRow>
                 ))
               )}

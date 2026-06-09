@@ -184,21 +184,25 @@ export default function ProvidersPage() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">服务商管理</h1>
-        <Button onClick={() => setDialogOpen(true)}>
-          <Plus className="mr-1 size-4" />
+        <h1 className="text-xl font-light tracking-tight text-stone-800">服务商管理</h1>
+        <Button
+          variant="outline"
+          className="h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50 hover:text-stone-800"
+          onClick={() => setDialogOpen(true)}
+        >
+          <Plus className="mr-1.5 size-3.5" />
           新增服务商
         </Button>
       </div>
 
       {/* Filter bar */}
-      <div className="flex flex-wrap items-end gap-4">
-        <div className="grid gap-1.5">
-          <Label>渠道</Label>
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="grid gap-1">
+          <Label className="text-xs text-stone-400">渠道</Label>
           <Select value={filterChannel} onValueChange={(v) => v && setFilterChannel(v)}>
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -212,10 +216,10 @@ export default function ProvidersPage() {
           </Select>
         </div>
 
-        <div className="grid gap-1.5">
-          <Label>状态</Label>
+        <div className="grid gap-1">
+          <Label className="text-xs text-stone-400">状态</Label>
           <Select value={filterStatus} onValueChange={(v) => v && setFilterStatus(v)}>
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -228,12 +232,12 @@ export default function ProvidersPage() {
           </Select>
         </div>
 
-        <div className="grid gap-1.5">
-          <Label>搜索</Label>
+        <div className="grid gap-1">
+          <Label className="text-xs text-stone-400">搜索</Label>
           <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-stone-300" />
             <Input
-              className="w-48 pl-8"
+              className="h-9 w-48 rounded-lg border-stone-200 bg-white pl-8 text-sm text-stone-700 placeholder:text-stone-300"
               placeholder="搜索服务商名称"
               value={filterSearch}
               onChange={(e) => setFilterSearch(e.target.value)}
@@ -244,7 +248,7 @@ export default function ProvidersPage() {
 
       {/* Provider cards grid */}
       {filteredProviders.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filteredProviders.map((provider) => (
             <ProviderCard
               key={provider.id}
@@ -254,7 +258,7 @@ export default function ProvidersPage() {
           ))}
         </div>
       ) : (
-        <div className="py-12 text-center text-muted-foreground">
+        <div className="py-16 text-center text-sm text-stone-400">
           暂无符合条件的服务商
         </div>
       )}
@@ -263,8 +267,8 @@ export default function ProvidersPage() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>新增服务商</DialogTitle>
-            <DialogDescription>填写以下信息添加新的服务商</DialogDescription>
+            <DialogTitle className="text-lg font-light tracking-tight text-stone-800">新增服务商</DialogTitle>
+            <DialogDescription className="text-sm text-stone-400">填写以下信息添加新的服务商</DialogDescription>
           </DialogHeader>
           <ProviderForm
             channels={channels}

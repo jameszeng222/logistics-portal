@@ -62,7 +62,7 @@ export function PriceTable({ columns, data, onRowClick }: PriceTableProps) {
               <Button
                 variant="ghost"
                 size="xs"
-                className="-ml-1.5"
+                className="-ml-1.5 text-stone-400 hover:text-stone-600"
                 onClick={() => handleSort(col.key)}
               >
                 {col.label}
@@ -77,7 +77,7 @@ export function PriceTable({ columns, data, onRowClick }: PriceTableProps) {
           <TableRow>
             <TableCell
               colSpan={columns.length}
-              className="h-24 text-center text-muted-foreground"
+              className="h-24 text-center text-stone-400"
             >
               暂无数据
             </TableCell>

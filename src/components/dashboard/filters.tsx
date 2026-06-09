@@ -45,15 +45,19 @@ export function Filters({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-wrap items-center gap-2">
       {/* Time range selector */}
-      <div className="flex items-center gap-1 rounded-lg border border-input p-0.5">
+      <div className="flex items-center gap-1">
         {timeRangeOptions.map((opt) => (
           <Button
             key={opt.value}
-            variant={timeRange === opt.value ? "default" : "ghost"}
+            variant="ghost"
             size="sm"
-            className="h-7 px-3 text-xs"
+            className={`h-7 px-3 text-xs ${
+              timeRange === opt.value
+                ? "bg-accent/10 text-accent border border-accent/20"
+                : ""
+            }`}
             onClick={() => onTimeRangeChange(opt.value)}
           >
             {opt.label}
@@ -66,12 +70,12 @@ export function Filters({
         <Button
           variant="outline"
           size="sm"
-          className="h-8 gap-1 text-xs"
+          className="h-7 gap-1 text-xs border-stone-200 rounded-lg"
           onClick={() => setBrandDropdownOpen(!brandDropdownOpen)}
         >
           品牌
           {selectedBrands.length > 0 && (
-            <span className="ml-1 rounded-full bg-primary px-1.5 py-0.5 text-[10px] text-primary-foreground">
+            <span className="ml-1 rounded-full bg-accent/10 px-1.5 py-0.5 text-[10px] text-accent">
               {selectedBrands.length}
             </span>
           )}
@@ -83,12 +87,12 @@ export function Filters({
               className="fixed inset-0 z-40"
               onClick={() => setBrandDropdownOpen(false)}
             />
-            <div className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-lg border bg-popover p-2 shadow-md">
+            <div className="absolute left-0 top-full z-50 mt-1 min-w-40 rounded-lg border border-stone-200 bg-white p-2 shadow-sm">
               <div className="mb-1 flex gap-1">
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 px-2 text-[10px]"
+                  className="h-6 px-2 text-[10px] text-stone-500"
                   onClick={selectAllBrands}
                 >
                   全选
@@ -96,7 +100,7 @@ export function Filters({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 px-2 text-[10px]"
+                  className="h-6 px-2 text-[10px] text-stone-500"
                   onClick={clearBrands}
                 >
                   清空
@@ -106,13 +110,13 @@ export function Filters({
                 {brands.map((brand) => (
                   <label
                     key={brand}
-                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-accent"
+                    className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-xs text-stone-700 hover:bg-stone-50"
                   >
                     <input
                       type="checkbox"
                       checked={selectedBrands.includes(brand)}
                       onChange={() => toggleBrand(brand)}
-                      className="rounded border-input"
+                      className="rounded border-stone-200"
                     />
                     {brand}
                   </label>

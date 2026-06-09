@@ -100,68 +100,71 @@ export default function WeeklyReportsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">周报管理</h1>
-          <p className="text-sm text-muted-foreground mt-1">
+          <h1 className="text-xl font-light tracking-tight text-stone-800">周报管理</h1>
+          <p className="text-sm text-stone-400 mt-1">
             管理物流部周报，追踪时效达成和重点问题
           </p>
         </div>
         <Link href="/weekly-reports/new">
-          <Button>
-            <PlusIcon className="size-4" />
+          <Button
+            variant="outline"
+            className="h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50 hover:text-stone-800"
+          >
+            <PlusIcon className="size-3.5" />
             新建周报
           </Button>
         </Link>
       </div>
 
       <div className="relative max-w-sm">
-        <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+        <SearchIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-stone-300" />
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="搜索周数或年份..."
-          className="pl-8"
+          className="h-9 rounded-lg border-stone-200 bg-white pl-8 text-sm text-stone-700 placeholder:text-stone-300"
         />
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground">
-          <CalendarIcon className="size-12 mx-auto mb-3 opacity-40" />
-          <p>暂无周报记录</p>
+        <div className="text-center py-16 text-stone-400">
+          <CalendarIcon className="size-12 mx-auto mb-3 opacity-30" />
+          <p className="text-sm">暂无周报记录</p>
           <Link href="/weekly-reports/new">
-            <Button variant="outline" className="mt-3">
+            <Button variant="outline" className="mt-3 h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50">
               创建第一份周报
             </Button>
           </Link>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((report) => (
             <Link key={report.id} href={`/weekly-reports/${report.id}`}>
-              <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <Card className="border-stone-200/60 shadow-none hover:shadow-sm transition-shadow cursor-pointer">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CalendarIcon className="size-4 text-primary" />
+                  <CardTitle className="flex items-center gap-2 text-sm font-normal text-stone-700">
+                    <CalendarIcon className="size-3.5 text-stone-400" />
                     {report.year}年第{report.weekNumber}周
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-xs text-stone-400">
                     {report.startDate} ~ {report.endDate}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-4 text-xs text-stone-500">
                     <div className="flex items-center gap-1.5">
-                      <AlertCircleIcon className="size-3.5 text-muted-foreground" />
+                      <AlertCircleIcon className="size-3 text-stone-300" />
                       <span>
                         {report.issueCount} 个问题
                       </span>
                       {report.openIssueCount > 0 && (
-                        <Badge variant="destructive" className="text-[10px] px-1">
+                        <Badge variant="destructive" className="text-[10px] px-1 rounded">
                           {report.openIssueCount} 未解决
                         </Badge>
                       )}
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <UsersIcon className="size-3.5 text-muted-foreground" />
+                      <UsersIcon className="size-3 text-stone-300" />
                       <span>{report.memberCount} 人</span>
                     </div>
                   </div>

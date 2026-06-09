@@ -108,28 +108,30 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "flex h-screen flex-col border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300",
-        collapsed ? "w-16" : "w-60"
+        "flex h-screen flex-col bg-sidebar text-sidebar-foreground transition-all duration-300",
+        collapsed ? "w-14" : "w-56"
       )}
     >
       {/* Header */}
-      <div className="flex h-14 items-center justify-between border-b border-border px-3">
+      <div className="flex h-12 items-center justify-between px-3">
         {!collapsed && (
-          <span className="text-sm font-semibold tracking-tight">物流部管理系统</span>
+          <span className="text-[13px] font-light tracking-wide text-muted-foreground">
+            物流部管理系统
+          </span>
         )}
         <Button
           variant="ghost"
           size="icon-sm"
           onClick={() => setCollapsed(!collapsed)}
-          className="shrink-0"
+          className="shrink-0 text-muted-foreground hover:text-foreground"
         >
-          {collapsed ? <ChevronRight className="size-4" /> : <ChevronLeft className="size-4" />}
+          {collapsed ? <ChevronRight className="size-3.5" /> : <ChevronLeft className="size-3.5" />}
         </Button>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-2 py-2">
-        <ul className="flex flex-col gap-1">
+      <nav className="flex-1 overflow-y-auto px-2 py-1">
+        <ul className="flex flex-col gap-0.5">
           {navItems.map((item) => (
             <li key={item.label}>
               {item.children ? (
@@ -138,8 +140,9 @@ export function Sidebar() {
                   <button
                     onClick={() => !collapsed && toggleGroup(item.label)}
                     className={cn(
-                      "flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-                      isGroupActive(item.children) && !collapsed && "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                      "flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px] transition-colors",
+                      "text-muted-foreground hover:text-foreground hover:bg-accent/8",
+                      isGroupActive(item.children) && !collapsed && "text-foreground"
                     )}
                   >
                     <span className="shrink-0">{item.icon}</span>
@@ -148,7 +151,7 @@ export function Sidebar() {
                         <span className="flex-1 text-left">{item.label}</span>
                         <ChevronDown
                           className={cn(
-                            "size-3.5 shrink-0 transition-transform duration-200",
+                            "size-3 shrink-0 text-muted-foreground/60 transition-transform duration-200",
                             expandedGroups[item.label] && "rotate-180"
                           )}
                         />
@@ -156,15 +159,16 @@ export function Sidebar() {
                     )}
                   </button>
                   {!collapsed && expandedGroups[item.label] && (
-                    <ul className="ml-4 mt-0.5 flex flex-col gap-0.5 border-l border-border pl-2">
+                    <ul className="ml-4 mt-0.5 flex flex-col gap-0.5 border-l border-border/40 pl-3">
                       {item.children.map((child) => (
                         <li key={child.href}>
                           <Link
                             href={child.href}
                             className={cn(
-                              "flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                              "flex items-center gap-2 rounded-md px-2 py-1.5 text-[13px] transition-colors",
+                              "hover:bg-accent/8 hover:text-foreground",
                               isActive(child.href)
-                                ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                                ? "bg-accent/8 text-foreground"
                                 : "text-muted-foreground"
                             )}
                           >
@@ -181,9 +185,10 @@ export function Sidebar() {
                 <Link
                   href={item.href!}
                   className={cn(
-                    "flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    "flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[13px] transition-colors",
+                    "hover:bg-accent/8 hover:text-foreground",
                     isActive(item.href!)
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                      ? "bg-accent/8 text-foreground"
                       : "text-muted-foreground"
                   )}
                 >

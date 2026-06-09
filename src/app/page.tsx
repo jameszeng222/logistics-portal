@@ -133,19 +133,19 @@ const MOCK_DATA: DashboardData = {
 };
 
 const BRAND_COLORS: Record<string, string> = {
-  LM: "#3b82f6",
-  "LM-TT": "#8b5cf6",
-  FD: "#ef4444",
-  "FD-TT": "#f97316",
+  LM: "#7c9a92",
+  "LM-TT": "#a8b5ae",
+  FD: "#c4938a",
+  "FD-TT": "#d4a69a",
 };
 
 const CHANNEL_COLORS: Record<string, string> = {
-  UPS: "#3b82f6",
-  空运: "#10b981",
-  海运: "#f59e0b",
+  UPS: "#7c9a92",
+  空运: "#b8a9c9",
+  海运: "#c9b896",
 };
 
-const PIE_COLORS = ["#3b82f6", "#10b981", "#f59e0b"];
+const PIE_COLORS = ["#7c9a92", "#b8a9c9", "#c9b896"];
 
 // --- Helper: transform trend data for Recharts ---
 function transformTrendData(trend: FeeRatioTrendItem[]) {
@@ -205,6 +205,17 @@ function getChannelVolumeByBrand() {
   ];
 }
 
+// --- Soft tooltip style ---
+const SOFT_TOOLTIP_STYLE: React.CSSProperties = {
+  backgroundColor: "rgba(255, 255, 255, 0.92)",
+  border: "1px solid #e7e5e4",
+  borderRadius: "8px",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+  padding: "8px 12px",
+  fontSize: "12px",
+  color: "#44403c",
+};
+
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData>(MOCK_DATA);
   const [timeRange, setTimeRange] = useState<TimeRange>("month");
@@ -258,10 +269,10 @@ export default function DashboardPage() {
   const providersList = [...new Set(data.providerTimeliness.map((d) => d.provider))];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-semibold">数据看板</h1>
+        <h1 className="text-xl font-light tracking-tight text-stone-800">数据看板</h1>
         <Filters
           brands={allBrands}
           selectedBrands={selectedBrands}
@@ -272,51 +283,60 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
         <KpiCard
           title="物流费率"
           value={`${(data.kpi.feeRatio * 100).toFixed(2)}%`}
           description="物流成本 / 销售金额"
+          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
         <KpiCard
           title="平均时效"
           value={`${data.kpi.avgDays} 天`}
           description="平均实际运输天数"
+          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
         <KpiCard
           title="总发货量"
           value={data.kpi.totalQty.toLocaleString()}
           description="统计周期内总发货件数"
+          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
         <KpiCard
           title="物流总成本"
           value={`¥${data.kpi.totalCost.toLocaleString()}`}
           description="统计周期内物流费用合计"
+          className="[&_[data-slot=card-content]]:text-2xl [&_[data-slot=card-content]]:font-light [&_[data-slot=card-content]_span:first-child]:text-2xl [&_[data-slot=card-content]_span:first-child]:font-light [&_[data-slot=card-content]_p]:text-xs [&_[data-slot=card-content]_p]:text-stone-400"
         />
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* 1. Fee ratio trend line chart */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">费率趋势（按品牌）</CardTitle>
+          <CardHeader className="border-0 pb-2">
+            <CardTitle className="text-sm font-normal text-stone-500">费率趋势（按品牌）</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={trendChartData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                  <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="month"
-                    tick={{ fontSize: 11 }}
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
                     tickFormatter={(v: string) => v.slice(5)}
+                    axisLine={{ stroke: "#e7e5e4" }}
+                    tickLine={false}
                   />
                   <YAxis
-                    tick={{ fontSize: 11 }}
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
                     tickFormatter={(v: number) => `${(v * 100).toFixed(1)}%`}
+                    axisLine={false}
+                    tickLine={false}
                   />
                   <Tooltip
+                    contentStyle={SOFT_TOOLTIP_STYLE}
                     formatter={(value) => `${(Number(value) * 100).toFixed(2)}%`}
                     labelFormatter={(label) => `月份: ${String(label)}`}
                   />
@@ -340,8 +360,8 @@ export default function DashboardPage() {
 
         {/* 2. Brand fee ratio rank bar chart (horizontal) */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">品牌费率排名</CardTitle>
+          <CardHeader className="border-0 pb-2">
+            <CardTitle className="text-sm font-normal text-stone-500">品牌费率排名</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -351,19 +371,24 @@ export default function DashboardPage() {
                   layout="vertical"
                   margin={{ left: 20 }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                  <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     type="number"
-                    tick={{ fontSize: 11 }}
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
                     tickFormatter={(v: number) => `${(v * 100).toFixed(1)}%`}
+                    axisLine={{ stroke: "#e7e5e4" }}
+                    tickLine={false}
                   />
                   <YAxis
                     type="category"
                     dataKey="brand"
-                    tick={{ fontSize: 12 }}
+                    tick={{ fill: "#a8a29e", fontSize: 12 }}
                     width={60}
+                    axisLine={false}
+                    tickLine={false}
                   />
                   <Tooltip
+                    contentStyle={SOFT_TOOLTIP_STYLE}
                     formatter={(value) => `${(Number(value) * 100).toFixed(2)}%`}
                   />
                   <Bar dataKey="feeRatio" radius={[0, 4, 4, 0]}>
@@ -382,24 +407,34 @@ export default function DashboardPage() {
 
         {/* 3. Provider timeliness comparison (grouped bar) */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">服务商时效对比</CardTitle>
+          <CardHeader className="border-0 pb-2">
+            <CardTitle className="text-sm font-normal text-stone-500">服务商时效对比</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={providerGroupedData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                  <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="provider"
-                    tick={{ fontSize: 10 }}
+                    tick={{ fill: "#a8a29e", fontSize: 10 }}
                     interval={0}
                     angle={-15}
                     textAnchor="end"
                     height={60}
+                    axisLine={{ stroke: "#e7e5e4" }}
+                    tickLine={false}
                   />
-                  <YAxis tick={{ fontSize: 11 }} unit="天" />
-                  <Tooltip formatter={(value) => `${Number(value)} 天`} />
+                  <YAxis
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    unit="天"
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <Tooltip
+                    contentStyle={SOFT_TOOLTIP_STYLE}
+                    formatter={(value) => `${Number(value)} 天`}
+                  />
                   <Legend />
                   {channelsList.map((channel) => (
                     <Bar
@@ -417,21 +452,31 @@ export default function DashboardPage() {
 
         {/* 4. Provider timeliness trend (line) */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">服务商时效趋势</CardTitle>
+          <CardHeader className="border-0 pb-2">
+            <CardTitle className="text-sm font-normal text-stone-500">服务商时效趋势</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={providerTrendData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                  <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
                   <XAxis
                     dataKey="month"
-                    tick={{ fontSize: 11 }}
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
                     tickFormatter={(v: string) => v.slice(5)}
+                    axisLine={{ stroke: "#e7e5e4" }}
+                    tickLine={false}
                   />
-                  <YAxis tick={{ fontSize: 11 }} unit="天" />
-                  <Tooltip formatter={(value) => `${Number(value)} 天`} />
+                  <YAxis
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    unit="天"
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <Tooltip
+                    contentStyle={SOFT_TOOLTIP_STYLE}
+                    formatter={(value) => `${Number(value)} 天`}
+                  />
                   <Legend />
                   {providersList.map((provider, idx) => (
                     <Line
@@ -452,17 +497,26 @@ export default function DashboardPage() {
 
         {/* 5. Volume comparison (stacked bar by brand) */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">渠道发货量对比</CardTitle>
+          <CardHeader className="border-0 pb-2">
+            <CardTitle className="text-sm font-normal text-stone-500">渠道发货量对比</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={channelStackedData}>
-                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                  <XAxis dataKey="channel" tick={{ fontSize: 12 }} />
-                  <YAxis tick={{ fontSize: 11 }} />
-                  <Tooltip />
+                  <CartesianGrid stroke="#f0eeec" strokeDasharray="" />
+                  <XAxis
+                    dataKey="channel"
+                    tick={{ fill: "#a8a29e", fontSize: 12 }}
+                    axisLine={{ stroke: "#e7e5e4" }}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    tick={{ fill: "#a8a29e", fontSize: 11 }}
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <Tooltip contentStyle={SOFT_TOOLTIP_STYLE} />
                   <Legend />
                   {allBrands.map((brand) => (
                     <Bar
@@ -485,8 +539,8 @@ export default function DashboardPage() {
 
         {/* 6. Channel volume pie chart */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base">渠道占比</CardTitle>
+          <CardHeader className="border-0 pb-2">
+            <CardTitle className="text-sm font-normal text-stone-500">渠道占比</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -511,7 +565,10 @@ export default function DashboardPage() {
                       />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => Number(value).toLocaleString()} />
+                  <Tooltip
+                    contentStyle={SOFT_TOOLTIP_STYLE}
+                    formatter={(value) => Number(value).toLocaleString()}
+                  />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>

@@ -54,7 +54,7 @@ const MOCK_TREND = [
 
 const columns: Column[] = [
   { key: "priceType", label: "价格类型", render: (v) => (
-    <Badge variant={v === "agent" ? "default" : "secondary"}>
+    <Badge variant={v === "agent" ? "default" : "secondary"} className="rounded-md text-xs font-normal">
       {v === "agent" ? "代理" : "自有账号"}
     </Badge>
   )},
@@ -162,22 +162,26 @@ export default function UpsPricePage() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">UPS 价格管理</h1>
+        <h1 className="text-xl font-light tracking-tight text-stone-800">UPS 价格管理</h1>
       </div>
 
       <Tabs defaultValue="list">
-        <TabsList>
+        <TabsList className="bg-stone-100">
           <TabsTrigger value="list">价格列表</TabsTrigger>
           <TabsTrigger value="compare">价格对比</TabsTrigger>
           <TabsTrigger value="trend">历史趋势</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="list" className="mt-4 space-y-4">
+        <TabsContent value="list" className="mt-6 space-y-6">
           <div className="flex justify-end">
-            <Button onClick={() => setDialogOpen(true)}>
-              <Plus className="mr-1 size-4" />
+            <Button
+              variant="outline"
+              className="h-9 rounded-lg border-stone-200 bg-white text-stone-600 shadow-sm hover:bg-stone-50 hover:text-stone-800"
+              onClick={() => setDialogOpen(true)}
+            >
+              <Plus className="mr-1.5 size-3.5" />
               新增价格
             </Button>
           </div>
@@ -186,20 +190,20 @@ export default function UpsPricePage() {
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogContent className="sm:max-w-lg">
               <DialogHeader>
-                <DialogTitle>新增 UPS 价格</DialogTitle>
-                <DialogDescription>填写以下信息添加新的 UPS 价格记录</DialogDescription>
+                <DialogTitle className="text-lg font-light tracking-tight text-stone-800">新增 UPS 价格</DialogTitle>
+                <DialogDescription className="text-sm text-stone-400">填写以下信息添加新的 UPS 价格记录</DialogDescription>
               </DialogHeader>
               <PriceForm fields={formFields} onSubmit={handleAdd} submitLabel="添加" />
             </DialogContent>
           </Dialog>
         </TabsContent>
 
-        <TabsContent value="compare" className="mt-4 space-y-4">
-          <div className="flex flex-wrap gap-4">
-            <div className="grid gap-1.5">
-              <Label>目的地区</Label>
+        <TabsContent value="compare" className="mt-6 space-y-6">
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="grid gap-1">
+              <Label className="text-xs text-stone-400">目的地区</Label>
               <Select value={compareRegion} onValueChange={(v) => v && setCompareRegion(v)}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="h-9 w-40 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -211,10 +215,10 @@ export default function UpsPricePage() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid gap-1.5">
-              <Label>区域</Label>
+            <div className="grid gap-1">
+              <Label className="text-xs text-stone-400">区域</Label>
               <Select value={compareZone} onValueChange={(v) => v && setCompareZone(v)}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -230,12 +234,12 @@ export default function UpsPricePage() {
           <PriceCompare data={compareData} highlightLowest />
         </TabsContent>
 
-        <TabsContent value="trend" className="mt-4 space-y-4">
-          <div className="flex flex-wrap gap-4">
-            <div className="grid gap-1.5">
-              <Label>目的地区</Label>
+        <TabsContent value="trend" className="mt-6 space-y-6">
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="grid gap-1">
+              <Label className="text-xs text-stone-400">目的地区</Label>
               <Select value={trendRegion} onValueChange={(v) => v && setTrendRegion(v)}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="h-9 w-40 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -247,10 +251,10 @@ export default function UpsPricePage() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid gap-1.5">
-              <Label>区域</Label>
+            <div className="grid gap-1">
+              <Label className="text-xs text-stone-400">区域</Label>
               <Select value={trendZone} onValueChange={(v) => v && setTrendZone(v)}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="h-9 w-32 rounded-lg border-stone-200 bg-white text-sm text-stone-700">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
