@@ -1,5 +1,5 @@
 /**
- * Cloudflare Workers + Static Assets configuration for logistics-portal
+ * Cloudflare Pages configuration for logistics-portal
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
@@ -8,11 +8,7 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
-	"main": ".open-next/worker.js",
-	"assets": {
-		"directory": ".open-next/assets",
-		"binding": "ASSETS"
-	},
+	"pages_build_output_dir": ".open-next/assets",
 	"d1_databases": [
 		{
 			"binding": "DB",
