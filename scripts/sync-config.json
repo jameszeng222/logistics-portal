@@ -1,0 +1,73 @@
+{
+  "description": "飞书多维表格到 D1 数据库的映射配置",
+  "tables": [
+    {
+      "feishu_app_token": "填写飞书多维表格的 app_token",
+      "feishu_table_id": "填写飞书多维表格的 table_id",
+      "d1_table": "ups_prices",
+      "field_mapping": {
+        "价格类型": "price_type",
+        "代理名称": "agent_name",
+        "目的地区域": "destination_region",
+        "Zone": "zone",
+        "单价": "unit_price",
+        "旺季附加费": "peak_surcharge",
+        "燃油附加费": "fuel_surcharge",
+        "生效日期": "effective_date",
+        "备注": "notes"
+      }
+    },
+    {
+      "feishu_app_token": "填写飞书多维表格的 app_token",
+      "feishu_table_id": "填写飞书多维表格的 table_id",
+      "d1_table": "air_prices",
+      "field_mapping": {
+        "服务商": "provider_id",
+        "起运国": "origin_country",
+        "起运机场": "origin_airport",
+        "目的国": "dest_country",
+        "目的机场": "dest_airport",
+        "单价": "unit_price",
+        "体积重除数": "dim_divisor",
+        "最低收费": "min_charge",
+        "生效日期": "effective_date",
+        "备注": "notes"
+      }
+    },
+    {
+      "feishu_app_token": "填写飞书多维表格的 app_token",
+      "feishu_table_id": "填写飞书多维表格的 table_id",
+      "d1_table": "sea_prices",
+      "field_mapping": {
+        "服务商": "provider_id",
+        "起运港": "origin_port",
+        "目的港": "dest_port",
+        "单价": "unit_price",
+        "最低收费": "min_charge",
+        "生效日期": "effective_date",
+        "备注": "notes"
+      }
+    },
+    {
+      "feishu_app_token": "填写飞书多维表格的 app_token",
+      "feishu_table_id": "填写飞书多维表格的 table_id",
+      "d1_table": "delivery_records",
+      "field_mapping": {
+        "品牌": "brand_id",
+        "渠道": "channel_id",
+        "服务商": "provider_id",
+        "发货日期": "shipment_date",
+        "签收日期": "delivery_date",
+        "承诺时效": "promised_days",
+        "实际时效": "actual_days",
+        "是否达标": "on_time",
+        "是否查验": "inspected",
+        "件数": "qty",
+        "重量kg": "weight_kg",
+        "物流费用": "logistics_cost",
+        "销售额": "sales_amount",
+        "备注": "notes"
+      }
+    }
+  ]
+}
