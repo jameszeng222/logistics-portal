@@ -32,32 +32,9 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
-      # 使用 OpenNext 构建 Next.js 项目
-      - name: 构建 Next.js
-        run: npx @opennextjs/cloudflare build
-
-      # 用 wrangler 内置打包器生成 _worker.js（确保与 workerd 运行时兼容）
-      - name: 打包 Worker
-        run: |
-          # 临时切换为 Workers 配置以使用 wrangler 内置打包
-          cat > /tmp/wrangler-workers.jsonc << 'WCFG'
-          {
-            "name": "logistics-portal",
-            "compatibility_date": "2026-06-09",
-            "compatibility_flags": ["nodejs_compat"],
-            "main": ".open-next/worker.js",
-            "minify": true,
-            "d1_databases": [{"binding": "DB", "database_name": "logistics-portal-db", "database_id": "60e5a405-3c79-460e-91aa-eb6fc8075b7c"}]
-          }
-          WCFG
-          rm -f .open-next/assets/_worker.js
-          touch .open-next/assets/.assetsignore
-          npx wrangler deploy --config /tmp/wrangler-workers.jsonc --dry-run --outdir=.open-next/wrangler-bundle
-          cp .open-next/wrangler-bundle/worker.js .open-next/assets/_worker.js
-
-      # 部署到 Cloudflare Pages
-      - name: 部署到 Cloudflare Pages
-        run: npx wrangler pages deploy .open-next/assets --project-name=logistics-portal --commit-dirty=true
+      # 使用 OpenNext 构建并部署到 Cloudflare Pages
+      - name: 构建并部署
+        run: npx @opennextjs/cloudflare build && npx @opennextjs/cloudflare deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
