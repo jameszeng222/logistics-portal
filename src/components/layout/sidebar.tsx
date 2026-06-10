@@ -21,6 +21,11 @@ import {
   Clock,
   ShieldCheck,
   BarChart3,
+  Package,
+  List,
+  Upload,
+  FileText,
+  LayoutTemplate,
 } from "lucide-react"
 
 interface NavChild {
@@ -46,11 +51,22 @@ const navItems: NavItem[] = [
     ],
   },
   {
+    label: "发货记录",
+    icon: <Package className="size-4" />,
+    children: [
+      { label: "发货台账", href: "/shipments", icon: <List className="size-4" /> },
+      { label: "批量导入", href: "/shipments/import", icon: <Upload className="size-4" /> },
+      { label: "统计汇总", href: "/shipments/stats", icon: <BarChart3 className="size-4" /> },
+    ],
+  },
+  {
     label: "工具箱",
     icon: <Wrench className="size-4" />,
     children: [
       { label: "体积计算器", href: "/tools/dim-calculator", icon: <Ruler className="size-4" /> },
       { label: "箱规查询", href: "/tools/box-specs", icon: <Box className="size-4" /> },
+      { label: "单据生成", href: "/documents/generate", icon: <FileText className="size-4" /> },
+      { label: "模板管理", href: "/documents/templates", icon: <LayoutTemplate className="size-4" /> },
     ],
   },
   {
@@ -69,6 +85,7 @@ export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false)
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
     "价格管理": true,
+    "发货记录": true,
     "工具箱": true,
     "供应商考核": true,
   })
