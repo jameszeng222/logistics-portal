@@ -27,7 +27,7 @@ export default function ComprehensivePage() {
         priceWeight: String(weights.price),
       });
       const res = await fetch(`/api/assessment/comprehensive?${params}`);
-      const json: { rankings?: ScoreRow[] } = await res.json();
+      const json = (await res.json()) as { rankings?: ScoreRow[] };
       if (json.rankings && json.rankings.length > 0) {
         setRankings(json.rankings);
       }

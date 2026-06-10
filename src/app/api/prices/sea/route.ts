@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body: Record<string, unknown> = await request.json();
+    const body = (await request.json()) as Record<string, unknown>;
 
     const providerId = body.providerId as number | undefined;
     const originPort = body.originPort as string | undefined;

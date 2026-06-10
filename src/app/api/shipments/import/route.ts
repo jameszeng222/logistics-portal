@@ -5,7 +5,7 @@ import { shipments } from "@/lib/db/schema";
 export async function POST(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body = await request.json();
+    const body = (await request.json()) as Record<string, any>;
     const records: Record<string, unknown>[] = body.records;
 
     if (!Array.isArray(records) || records.length === 0) {

@@ -33,7 +33,7 @@ export function DimRulesManager() {
   const loadRules = useCallback(async () => {
     try {
       const res = await fetch("/api/dim-rules");
-      const data = await res.json();
+      const data = await res.json() as any;
       if (Array.isArray(data)) {
         setRules(data);
         return;

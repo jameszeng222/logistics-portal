@@ -10,7 +10,7 @@ export async function PUT(
   try {
     const { db } = await getContext();
     const { id } = await params;
-    const body = await request.json();
+    const body = (await request.json()) as Record<string, any>;
     const result = await db.update(documentTemplates)
       .set({
         name: body.name,

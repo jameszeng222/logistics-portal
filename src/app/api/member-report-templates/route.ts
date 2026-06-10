@@ -23,7 +23,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body: { memberName: string; template: string } = await request.json();
+    const body = (await request.json()) as { memberName: string; template: string };
 
     if (!body.memberName) {
       return NextResponse.json(
@@ -72,8 +72,7 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body: { id: number; memberName?: string; template?: string } =
-      await request.json();
+    const body = (await request.json()) as { id: number; memberName?: string; template?: string };
 
     if (!body.id) {
       return NextResponse.json(

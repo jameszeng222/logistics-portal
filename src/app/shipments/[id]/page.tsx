@@ -11,7 +11,7 @@ export default function EditShipmentPage() {
 
   useEffect(() => {
     fetch(`/api/shipments/${params.id}`)
-      .then((res) => res.json())
+      .then((res) => res.json() as Promise<Record<string, any>>)
       .then((json) => setData(json.data))
       .finally(() => setLoading(false))
   }, [params.id])

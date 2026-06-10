@@ -131,7 +131,7 @@ export async function PATCH(
   try {
     const { db } = await getContext();
     const { id } = await params;
-    const body: Record<string, unknown> = await request.json();
+    const body = (await request.json()) as Record<string, unknown>;
 
     // Get current provider
     const current = await db

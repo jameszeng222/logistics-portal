@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body: { sku?: string; lengthCm?: number; widthCm?: number; heightCm?: number; grossWeightKg?: number; qtyPerBox?: number; notes?: string } = await request.json();
+    const body = (await request.json()) as { sku?: string; lengthCm?: number; widthCm?: number; heightCm?: number; grossWeightKg?: number; qtyPerBox?: number; notes?: string };
     const { sku, lengthCm, widthCm, heightCm, grossWeightKg, qtyPerBox, notes } = body;
 
     if (!sku || !lengthCm || !widthCm || !heightCm || !grossWeightKg) {

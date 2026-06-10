@@ -85,7 +85,7 @@ export default function TimelinessPage() {
       const params = new URLSearchParams({ period });
       if (channelId) params.set("channelId", channelId);
       const res = await fetch(`/api/assessment/timeliness?${params}`);
-      const json: TimelinessData = await res.json();
+      const json = (await res.json()) as TimelinessData;
       if (json.byProvider && json.byProvider.length > 0) {
         setData(json);
       }

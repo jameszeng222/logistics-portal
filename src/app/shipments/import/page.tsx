@@ -57,7 +57,7 @@ export default function ImportPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ records: parsed }),
       })
-      const json = await res.json()
+      const json = await res.json() as Record<string, any>
       if (res.ok) {
         setResult({ count: json.count })
       } else {

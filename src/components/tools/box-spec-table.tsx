@@ -58,7 +58,7 @@ export function BoxSpecTable({ onSelect }: BoxSpecTableProps) {
         ? `/api/box-specs?sku=${encodeURIComponent(search)}`
         : "/api/box-specs";
       const res = await fetch(url);
-      const data = await res.json();
+      const data = await res.json() as any;
       if (Array.isArray(data)) {
         setSpecs(data);
       }

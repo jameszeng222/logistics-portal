@@ -27,7 +27,7 @@ export default function ShipmentsPage() {
     if (filters.trackingNo) params.set("tracking_no", filters.trackingNo)
 
     const res = await fetch(`/api/shipments?${params}`)
-    const json = await res.json()
+    const json = await res.json() as Record<string, any>
     setData(json.data || [])
     setTotal(json.total || 0)
   }, [page, filters])

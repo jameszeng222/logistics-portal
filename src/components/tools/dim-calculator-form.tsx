@@ -54,7 +54,7 @@ export function DimCalculatorForm({ onResult }: DimCalculatorFormProps) {
 
   useEffect(() => {
     fetch("/api/dim-rules")
-      .then((res) => res.json())
+      .then((res) => res.json() as Promise<any>)
       .then((data) => {
         if (Array.isArray(data)) {
           setDimRules(data);

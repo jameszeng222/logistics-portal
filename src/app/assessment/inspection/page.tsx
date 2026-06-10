@@ -84,7 +84,7 @@ export default function InspectionPage() {
       const params = new URLSearchParams({ period });
       if (channelId) params.set("channelId", channelId);
       const res = await fetch(`/api/assessment/inspection?${params}`);
-      const json: InspectionData = await res.json();
+      const json = (await res.json()) as InspectionData;
       if (json.byProvider && json.byProvider.length > 0) {
         setData(json);
       }

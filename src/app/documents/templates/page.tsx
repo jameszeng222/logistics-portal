@@ -27,7 +27,7 @@ export default function TemplatesPage() {
 
   const fetchTemplates = async () => {
     const res = await fetch("/api/documents/templates")
-    const json = await res.json()
+    const json = await res.json() as Record<string, any>
     setTemplates(json.data || [])
   }
 

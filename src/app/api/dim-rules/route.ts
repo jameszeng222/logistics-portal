@@ -19,7 +19,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body: { channelName?: string; dimDivisor?: number; isDefault?: boolean } = await request.json();
+    const body = (await request.json()) as { channelName?: string; dimDivisor?: number; isDefault?: boolean };
     const { channelName, dimDivisor, isDefault } = body;
 
     if (!channelName || !dimDivisor) {

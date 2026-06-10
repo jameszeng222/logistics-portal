@@ -11,7 +11,7 @@ export default function ShipmentStatsPage() {
 
   useEffect(() => {
     fetch("/api/shipments/stats")
-      .then((res) => res.json())
+      .then((res) => res.json() as Promise<Record<string, any>>)
       .then((json) => setStats(json.data))
   }, [])
 

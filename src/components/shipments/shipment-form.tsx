@@ -51,7 +51,7 @@ export function ShipmentForm({ initialData, mode }: ShipmentFormProps) {
         router.push("/shipments")
         router.refresh()
       } else {
-        const err = await res.json()
+        const err = await res.json() as Record<string, any>
         alert(err.error || "操作失败")
       }
     } catch {

@@ -16,7 +16,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const { db } = await getContext();
-    const body = await request.json();
+    const body = (await request.json()) as Record<string, any>;
     const result = await db.insert(documentTemplates).values({
       name: body.name,
       type: body.type,
