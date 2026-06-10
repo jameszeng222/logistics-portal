@@ -197,3 +197,51 @@ export const memberReportTemplates = sqliteTable("member_report_templates", {
   createdAt: text("created_at").default(sql`(datetime('now'))`),
   updatedAt: text("updated_at").default(sql`(datetime('now'))`),
 });
+
+// 发货记录台账
+export const shipments = sqliteTable("shipments", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  shipmentDate: text("shipment_date").notNull(),
+  brand: text("brand").notNull(),
+  channel: text("channel").notNull(),
+  provider: text("provider").notNull(),
+  destination: text("destination").notNull(),
+  trackingNo: text("tracking_no"),
+  pieces: integer("pieces").notNull(),
+  actualWeight: real("actual_weight"),
+  volWeight: real("vol_weight"),
+  chargeWeight: real("charge_weight"),
+  freightCost: real("freight_cost"),
+  extraCost: real("extra_cost").default(0),
+  totalCost: real("total_cost"),
+  currency: text("currency").default("CNY"),
+  remark: text("remark"),
+  createdAt: text("created_at").default(sql`(datetime('now'))`),
+  updatedAt: text("updated_at").default(sql`(datetime('now'))`),
+}, (table) => [
+  index("idx_shipment_date").on(table.shipmentDate),
+  index("idx_shipment_brand").on(table.brand),
+  index("idx_shipment_channel").on(table.channel),
+  index("idx_shipment_provider").on(table.provider),
+]);
+
+// 单据模板
+export const documentTemplates = sqliteTable("document_templates", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  type: text("type").notNull(),
+  fields: text("fields").notNull(),
+  layout: text("layout"),
+  isDefault: integer("is_default").default(0),
+  createdAt: text("created_at").default(sql`(datetime('now'))`),
+  updatedAt: text("updated_at").default(sql`(datetime('now'))`),
+});
+
+// 生成的单据
+export const documents = sqliteTable("documents", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  templateId: integer("template_id").references(() => documentTemplates.id),
+  type: text("type").notNull(),
+  data: text("data").notNull(),
+  createdAt: text("created_at").default(sql`(datetime('now'))`),
+});
